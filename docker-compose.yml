@@ -42,5 +42,6 @@ services:
             - ${HOST_NETWORK}
         ports:
             - "${AUTOMATIONID_API_PORT}:${AUTOMATIONID_API_PORT}"
+volumes:
     mysql-data:
         driver: local
