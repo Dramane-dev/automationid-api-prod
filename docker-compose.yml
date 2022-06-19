@@ -8,8 +8,6 @@ networks:
 services:
     automationid-api:
         container_name: ${AUTOMATIONID_API}
-        depends_on:
-            - ${AUTOMATIONID_DB}
         image: ${AUTOMATIONID_API}
         build:
             context: ./automationid-api
