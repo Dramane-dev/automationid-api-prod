@@ -4,6 +4,6 @@ export const connectionToDatabase = (): Promise<string> => {
     return new Promise((resolve, reject) => {
         database.authenticate()
         .then(() => resolve("Database connection established ✅"))
-        .catch((error) => reject(`Database connection error ❌ : ${error.message} ${process.env.MY_SQL_HOST}`));
+        .catch((error) => reject(`Database connection error ❌ : ${error.message}`));
     });
 }
