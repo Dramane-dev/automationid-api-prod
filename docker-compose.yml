@@ -9,6 +9,9 @@ services:
     automationid-db:
         container_name: ${AUTOMATIONID_DB}
         image: mysql:latest
+        build:
+            context: ./automationid-api
+            dockerfile: Dockerfile
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         expose:
