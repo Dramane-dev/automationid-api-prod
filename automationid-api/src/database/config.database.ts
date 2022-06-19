@@ -3,7 +3,6 @@ import config from "./default";
 
 export const database = new Sequelize("idea_collector", "userAutomationid", "rootroot", {
     host: "automationid-db",
-    port: 3307,
     dialect: "mysql",
     logging: false,
     define: {
