@@ -14,7 +14,7 @@ services:
         expose:
             - "${MY_SQL_PORT}"
         ports:
-            - "${MY_SQL_PORT}:${MY_SQL_PORT}"
+            - "${MY_SQL_PORT}:${MY_SQL_DEFAULT_PORT}"
         networks:
             - ${HOST_NETWORK}
         environment:
