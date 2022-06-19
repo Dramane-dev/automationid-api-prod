@@ -1,0 +1,46 @@
+version: "3.8"
+
+networks:
+    nginx_reverse_proxy_gateway:
+        external: true
+        name: nginx_reverse_proxy_gateway
+
+services:
+    automationid-db:
+        container_name: ${AUTOMATIONID_DB}
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        expose:
+            - "${MY_SQL_PORT}"
+        ports:
+            - "${MY_SQL_PORT}:${MY_SQL_PORT}"
+        networks:
+            - ${HOST_NETWORK}
+        environment:
+            MYSQL_DATABASE: ${MY_SQL_DATABASE}
+            MYSQL_ALLOW_EMPTY_PASSWORD: ${MY_SQL_ALLOW_EMPTY_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MY_SQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MY_SQL_USER}
+            MYSQL_PASSWORD: ${MY_SQL_PASSWORD}
+            MYSQL_ROOT_HOST: ${MY_SQL_ROOT_HOST}
+        volumes:
+            - mysql-data:/data/db
+            - "./automationid-api/src/database/procedure.sql:/docker-entrypoint-initdb.d/procedure.sql"
+    automationid-api:
+        container_name: ${AUTOMATIONID_API}
+        depends_on:
+            - ${AUTOMATIONID_DB}
+        image: ${AUTOMATIONID_API}
+        build:
+            context: ./automationid-api
+            dockerfile: Dockerfile
+        restart: always
+        command: bash -c 'while !</dev/tcp/automationid-db/${MY_SQL_PORT}; do sleep 1; done; npm start'
+        networks:
+            - ${HOST_NETWORK}
+        ports:
+            - "${AUTOMATIONID_API_PORT}:${AUTOMATIONID_API_PORT}"
+volumes:
+    mysql-data:
+        driver: local
