@@ -37,7 +37,7 @@ services:
             context: ./automationid-api
             dockerfile: Dockerfile
         restart: always
-        command: bash -c 'while !</dev/tcp/automationid-db/${MY_SQL_PORT}; do sleep 1; done; npm start'
+        command: bash -c 'while !</dev/tcp/automationid-db/${MY_SQL_DEFAULT_PORT}; do sleep 1; done; npm start'
         networks:
             - ${HOST_NETWORK}
         ports:
