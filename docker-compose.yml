@@ -8,10 +8,7 @@ networks:
 services:
     automationid-db:
         container_name: ${AUTOMATIONID_DB}
-        image: mysql:local
-        build:
-            context: ./automationid-api/src/database
-            dockerfile: Dockerfile
+        image: mysql:latest
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         ports:
