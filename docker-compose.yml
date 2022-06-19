@@ -8,7 +8,9 @@ networks:
 services:
     automationid-db:
         container_name: ${AUTOMATIONID_DB}
-        image: mysql:latest
+        image: mysql-local
+        build: 
+            context: ./automationid-api/src/database/
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         expose:
