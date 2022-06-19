@@ -43,7 +43,7 @@ services:
         ports:
             - "${AUTOMATIONID_API_PORT}:${AUTOMATIONID_API_PORT}"
         environment:
-            - SERVER_PORT: ${SERVER_PORT}
+            - SERVER_PORT: "${SERVER_PORT}"
             - DATABASE_NAME: ${DATABASE_NAME}
             - DATABASE_PORT: ${DATABASE_PORT}
             - DATABASE_USER: ${DATABASE_USER}
